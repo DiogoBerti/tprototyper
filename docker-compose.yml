@@ -1,0 +1,40 @@
+version: '3'
+services:
+  db_prot:
+    image: postgres
+    environment:
+      POSTGRES_DB: prototyper
+      POSTGRES_USER: prototyper
+      POSTGRES_PASSWORD: admin
+    networks:
+      - proto-net
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    image: prototyper_tsimples
+    restart: always    
+    environment:
+      # - NODB: 1
+      POSTGRES_DB: prototyper
+      POSTGRES_USER: prototyper
+      POSTGRES_PASSWORD: admin
+      POSTGRES_SERVER: db_prot      
+    command: ["python3", "main.py"]          
+    depends_on:
+      - db_prot      
+    volumes:
+      - .:/app
+      - ../docs:/doc
+    ports:
+      - "0.0.0.0:5000:5000"
+    tty: true
+    stdin_open: true
+    networks:
+      - proto-net
+
+
+networks:
+  proto-net:
+    driver: bridge
