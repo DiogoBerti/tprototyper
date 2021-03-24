@@ -34,7 +34,25 @@ services:
     networks:
       - proto-net
 
+  pgadmin:    
+    image: dpage/pgadmin4
+    links:
+      - db_prot
+    depends_on:
+      - db_prot
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: pwdpwd      
+    volumes:
+      - pgadmin:/root/.pgadmin       
+    ports:
+      - "0.0.0.0:5050:80"
+    networks:
+      - proto-net
 
 networks:
   proto-net:
     driver: bridge
+
+volumes:  
+  pgadmin:

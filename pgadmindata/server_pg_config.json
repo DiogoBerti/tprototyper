@@ -1,0 +1,13 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "Postgres Prototyper",
+            "Group": "Server Group 1",
+            "Port": 5432,
+            "Username": "prototyper",
+            "Host": "db_prot",
+            "SSLMode": "prefer",
+            "MaintenanceDB": "prototyper"
+        }        
+    }
+}
